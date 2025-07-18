@@ -74,8 +74,8 @@ export default function HomePage() {
             {/* Analytics */}
             <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
               <div className="text-3xl mb-4">📊</div>
-              <h3 className="text-lg font-semibold text-black">Real-time Analytics</h3>
-              <p className="mt-2 text-black">Track registration numbers, check-in rates, and event statistics.</p>
+              <h3 className="text-lg font-semibold text-gray-900">Real-time Analytics</h3>
+              <p className="mt-2 text-gray-600">Track registration numbers, check-in rates, and event statistics.</p>
               <div className="mt-4 inline-block bg-gray-400 text-white px-4 py-2 rounded cursor-not-allowed">
                 Coming Soon
               </div>

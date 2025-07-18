@@ -34,8 +34,8 @@ export default function HomePage() {
             {/* Student Registration */}
             <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
               <div className="text-3xl mb-4">📝</div>
-              <h3 className="text-lg font-semibold text-black">Student Registration</h3>
-              <p className="mt-2 text-black">Quick and easy registration process with automatic QR code generation.</p>
+              <h3 className="text-lg font-semibold black">Student Registration</h3>
+              <p className="mt-2 black">Quick and easy registration process with automatic QR code generation.</p>
               <Link href="/register" className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
                 Register Now
               </Link>
@@ -44,8 +44,8 @@ export default function HomePage() {
             {/* QR Check-in */}
             <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
               <div className="text-3xl mb-4">✅</div>
-              <h3 className="text-lg font-semibold text-black">QR Check-in</h3>
-              <p className="mt-2 text-black">Fast check-in process using QR code scanning technology.</p>
+              <h3 className="text-lg font-semibold black">QR Check-in</h3>
+              <p className="mt-2 black">Fast check-in process using QR code scanning technology.</p>
               <Link href="/checkin" className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
                 Check-in Scanner
               </Link>
@@ -54,8 +54,8 @@ export default function HomePage() {
             {/* Student Management */}
             <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
               <div className="text-3xl mb-4">👥</div>
-              <h3 className="text-lg font-semibold text-black">Student Management</h3>
-              <p className="mt-2 text-black">View, edit, and manage all registered students in one place.</p>
+              <h3 className="text-lg font-semibold text-gray-900">Student Management</h3>
+              <p className="mt-2 text-gray-600">View, edit, and manage all registered students in one place.</p>
               <Link href="/students" className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
                 View Students
               </Link>
@@ -64,8 +64,8 @@ export default function HomePage() {
             {/* Organizer Dashboard */}
             <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
               <div className="text-3xl mb-4">⚙️</div>
-              <h3 className="text-lg font-semibold text-black">Organizer Dashboard</h3>
-              <p className="mt-2 text-black">Advanced admin features for event organizers and administrators.</p>
+              <h3 className="text-lg font-semibold text-gray-900">Organizer Dashboard</h3>
+              <p className="mt-2 text-gray-600">Advanced admin features for event organizers and administrators.</p>
               <Link href="/organizer" className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
                 Admin Panel
               </Link>
@@ -74,8 +74,8 @@ export default function HomePage() {
             {/* Analytics */}
             <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
               <div className="text-3xl mb-4">📊</div>
-              <h3 className="text-lg font-semibold text-black">Real-time Analytics</h3>
-              <p className="mt-2 text-black">Track registration numbers, check-in rates, and event statistics.</p>
+              <h3 className="text-lg font-semibold text-gray-900">Real-time Analytics</h3>
+              <p className="mt-2 text-gray-600">Track registration numbers, check-in rates, and event statistics.</p>
               <div className="mt-4 inline-block bg-gray-400 text-white px-4 py-2 rounded cursor-not-allowed">
                 Coming Soon
               </div>
