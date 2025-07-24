@@ -113,24 +113,24 @@ export default function HomePage() {
         </div>
 
         {/* Quick Stats */}
-        <div className="mt-16 bg-gradient-to-r from-white to-purple-50 rounded-xl shadow-lg p-8 border border-purple-100">
-          <h2 className="text-2xl font-bold text-center bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent mb-8">Platform Features</h2>
+        <div className="mt-16 bg-white rounded-lg shadow-lg p-8">
+          <h2 className="text-2xl font-bold text-center text-gray-900 mb-8">Platform Features</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
-            <div className="p-4 rounded-lg hover:bg-purple-50 transition-colors duration-300">
-              <div className="text-4xl font-bold text-purple-600 mb-2">🚀</div>
-              <div className="mt-2 text-sm text-purple-700 font-medium">Fast Setup</div>
+            <div>
+              <div className="text-3xl font-bold text-blue-600">🚀</div>
+              <div className="mt-2 text-sm text-gray-600">Fast Setup</div>
             </div>
-            <div className="p-4 rounded-lg hover:bg-purple-50 transition-colors duration-300">
-              <div className="text-4xl font-bold text-purple-600 mb-2">📱</div>
-              <div className="mt-2 text-sm text-purple-700 font-medium">Mobile Friendly</div>
+            <div>
+              <div className="text-3xl font-bold text-blue-600">📱</div>
+              <div className="mt-2 text-sm text-gray-600">Mobile Friendly</div>
             </div>
-            <div className="p-4 rounded-lg hover:bg-purple-50 transition-colors duration-300">
-              <div className="text-4xl font-bold text-purple-600 mb-2">🔒</div>
-              <div className="mt-2 text-sm text-purple-700 font-medium">Secure</div>
+            <div>
+              <div className="text-3xl font-bold text-blue-600">🔒</div>
+              <div className="mt-2 text-sm text-gray-600">Secure</div>
             </div>
-            <div className="p-4 rounded-lg hover:bg-purple-50 transition-colors duration-300">
-              <div className="text-4xl font-bold text-purple-600 mb-2">⚡</div>
-              <div className="mt-2 text-sm text-purple-700 font-medium">Real-time</div>
+            <div>
+              <div className="text-3xl font-bold text-blue-600">⚡</div>
+              <div className="mt-2 text-sm text-gray-600">Real-time</div>
             </div>
           </div>
         </div>

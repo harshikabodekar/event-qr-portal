@@ -250,13 +250,13 @@ export default function AuthPage() {
                     placeholder="Enter your full name"
                     value={form.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-black bg-purple-50/30"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                     required={isSignUp}
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="role" className="block text-sm font-medium text-purple-700 mb-1">
+                  <label htmlFor="role" className="block text-sm font-medium text-gray-700 mb-1">
                     Role
                   </label>
                   <select
@@ -264,7 +264,7 @@ export default function AuthPage() {
                     name="role"
                     value={form.role}
                     onChange={handleChange}
-                    className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-black bg-purple-50/30"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                   >
                     <option value="student">Student</option>
                     <option value="organizer">Organizer</option>
@@ -275,7 +275,7 @@ export default function AuthPage() {
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-purple-700 mb-1">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
                 Email Address
               </label>
               <input
@@ -285,13 +285,13 @@ export default function AuthPage() {
                 placeholder="Enter your email address"
                 value={form.email}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-black bg-purple-50/30"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                 required
               />
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-purple-700 mb-1">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
                 Password
               </label>
               <input
@@ -301,14 +301,14 @@ export default function AuthPage() {
                 placeholder="Enter your password"
                 value={form.password}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-black bg-purple-50/30"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                 required
               />
             </div>
 
             {isSignUp && (
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-purple-700 mb-1">
+                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">
                   Confirm Password
                 </label>
                 <input
@@ -318,7 +318,7 @@ export default function AuthPage() {
                   placeholder="Confirm your password"
                   value={form.confirmPassword}
                   onChange={handleChange}
-                  className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-black bg-purple-50/30"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-black"
                   required={isSignUp}
                 />
               </div>
@@ -327,21 +327,21 @@ export default function AuthPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white py-3 px-4 rounded-lg hover:from-purple-700 hover:to-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+              className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {loading 
                 ? (isSignUp ? 'Creating Account...' : 'Signing In...') 
-                : (isSignUp ? '✨ Create Account' : '🚀 Sign In')
+                : (isSignUp ? 'Create Account' : 'Sign In')
               }
             </button>
           </form>
 
           <div className="mt-6 text-center">
-            <p className="text-purple-600">
+            <p className="text-gray-600">
               {isSignUp ? 'Already have an account?' : "Don't have an account?"}
               <button
                 onClick={toggleMode}
-                className="ml-1 text-purple-700 hover:text-purple-800 font-medium underline decoration-purple-300 hover:decoration-purple-500 transition-all duration-300"
+                className="ml-1 text-blue-600 hover:text-blue-700 font-medium"
               >
                 {isSignUp ? 'Sign In' : 'Sign Up'}
               </button>
@@ -349,10 +349,10 @@ export default function AuthPage() {
           </div>
 
           {/* Additional options */}
-          <div className="mt-4 pt-4 border-t border-purple-200">
+          <div className="mt-4 pt-4 border-t border-gray-200">
             <div className="text-center">
-              <p className="text-xs text-purple-500">
-                🔒 Secure authentication powered by Supabase
+              <p className="text-xs text-gray-500">
+                Secure authentication powered by Supabase
               </p>
             </div>
           </div>
@@ -360,19 +360,19 @@ export default function AuthPage() {
 
         {/* Info Section */}
         <div className="mt-8 max-w-md text-center">
-          <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm border border-purple-100">
-            <h3 className="font-semibold text-purple-900 mb-3">Account Types</h3>
-            <div className="text-sm text-purple-700 space-y-2">
+          <div className="bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-sm">
+            <h3 className="font-semibold text-gray-900 mb-3">Account Types</h3>
+            <div className="text-sm text-gray-700 space-y-2">
               <div className="flex items-center space-x-2">
-                <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
+                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
                 <span><strong>Student:</strong> Register for events, get QR codes, check-in</span>
               </div>
               <div className="flex items-center space-x-2">
-                <span className="w-2 h-2 bg-purple-600 rounded-full"></span>
+                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                 <span><strong>Organizer:</strong> Manage events, view registrations</span>
               </div>
               <div className="flex items-center space-x-2">
-                <span className="w-2 h-2 bg-purple-800 rounded-full"></span>
+                <span className="w-2 h-2 bg-red-500 rounded-full"></span>
                 <span><strong>Admin:</strong> Full system access and management</span>
               </div>
             </div>

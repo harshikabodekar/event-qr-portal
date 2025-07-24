@@ -368,11 +368,11 @@ export default function AuthPage() {
                 <span><strong>Student:</strong> Register for events, get QR codes, check-in</span>
               </div>
               <div className="flex items-center space-x-2">
-                <span className="w-2 h-2 bg-purple-600 rounded-full"></span>
+                <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                 <span><strong>Organizer:</strong> Manage events, view registrations</span>
               </div>
               <div className="flex items-center space-x-2">
-                <span className="w-2 h-2 bg-purple-800 rounded-full"></span>
+                <span className="w-2 h-2 bg-red-500 rounded-full"></span>
                 <span><strong>Admin:</strong> Full system access and management</span>
               </div>
             </div>

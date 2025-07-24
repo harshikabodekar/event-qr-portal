@@ -78,32 +78,32 @@ export default function HomePage() {
                 <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-purple-100 hover:border-purple-200 transform hover:-translate-y-1">
                   <div className="text-3xl mb-4 bg-gradient-to-r from-purple-500 to-purple-600 w-12 h-12 rounded-full flex items-center justify-center text-white">⚙️</div>
                   <h3 className="text-lg font-semibold text-purple-900">Organizer Dashboard</h3>
-                  <p className="mt-2 text-purple-700">Manage events, create new ones, and track registrations.</p>
-                  <Link href="/organizer" className="mt-4 inline-block bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-2 rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all duration-300 shadow-md hover:shadow-lg">
+                  <p className="mt-2 text-black">Manage events, create new ones, and track registrations.</p>
+                  <Link href="/organizer" className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
                     Dashboard
                   </Link>
                 </div>
-                <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-purple-100 hover:border-purple-200 transform hover:-translate-y-1">
-                  <div className="text-3xl mb-4 bg-gradient-to-r from-purple-500 to-purple-600 w-12 h-12 rounded-full flex items-center justify-center text-white">📋</div>
-                  <h3 className="text-lg font-semibold text-purple-900">Event Registrations</h3>
-                  <p className="mt-2 text-purple-700">View all event registrations and manage participants.</p>
-                  <Link href="/registrations" className="mt-4 inline-block bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-2 rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all duration-300 shadow-md hover:shadow-lg">
+                <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                  <div className="text-3xl mb-4">📋</div>
+                  <h3 className="text-lg font-semibold text-black">Event Registrations</h3>
+                  <p className="mt-2 text-black">View all event registrations and manage participants.</p>
+                  <Link href="/registrations" className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
                     View Registrations
                   </Link>
                 </div>
-                <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-purple-100 hover:border-purple-200 transform hover:-translate-y-1">
-                  <div className="text-3xl mb-4 bg-gradient-to-r from-purple-500 to-purple-600 w-12 h-12 rounded-full flex items-center justify-center text-white">✅</div>
-                  <h3 className="text-lg font-semibold text-purple-900">QR Check-in</h3>
-                  <p className="mt-2 text-purple-700">Scan QR codes for event check-ins.</p>
-                  <Link href="/checkin" className="mt-4 inline-block bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-2 rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all duration-300 shadow-md hover:shadow-lg">
+                <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                  <div className="text-3xl mb-4">✅</div>
+                  <h3 className="text-lg font-semibold text-black">QR Check-in</h3>
+                  <p className="mt-2 text-black">Scan QR codes for event check-ins.</p>
+                  <Link href="/checkin" className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
                     Check-in Scanner
                   </Link>
                 </div>
-                <div className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-300 border border-purple-100 hover:border-purple-200 transform hover:-translate-y-1">
-                  <div className="text-3xl mb-4 bg-gradient-to-r from-purple-500 to-purple-600 w-12 h-12 rounded-full flex items-center justify-center text-white">👥</div>
-                  <h3 className="text-lg font-semibold text-purple-900">Student Management</h3>
-                  <p className="mt-2 text-purple-700">View and manage all registered students.</p>
-                  <Link href="/students" className="mt-4 inline-block bg-gradient-to-r from-purple-600 to-purple-700 text-white px-6 py-2 rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all duration-300 shadow-md hover:shadow-lg">
+                <div className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition-shadow">
+                  <div className="text-3xl mb-4">👥</div>
+                  <h3 className="text-lg font-semibold text-black">Student Management</h3>
+                  <p className="mt-2 text-black">View and manage all registered students.</p>
+                  <Link href="/students" className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
                     View Students
                   </Link>
                 </div>
@@ -113,24 +113,24 @@ export default function HomePage() {
         </div>
 
         {/* Quick Stats */}
-        <div className="mt-16 bg-gradient-to-r from-white to-purple-50 rounded-xl shadow-lg p-8 border border-purple-100">
-          <h2 className="text-2xl font-bold text-center bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent mb-8">Platform Features</h2>
+        <div className="mt-16 bg-white rounded-lg shadow-lg p-8">
+          <h2 className="text-2xl font-bold text-center text-gray-900 mb-8">Platform Features</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
-            <div className="p-4 rounded-lg hover:bg-purple-50 transition-colors duration-300">
-              <div className="text-4xl font-bold text-purple-600 mb-2">🚀</div>
-              <div className="mt-2 text-sm text-purple-700 font-medium">Fast Setup</div>
+            <div>
+              <div className="text-3xl font-bold text-blue-600">🚀</div>
+              <div className="mt-2 text-sm text-gray-600">Fast Setup</div>
             </div>
-            <div className="p-4 rounded-lg hover:bg-purple-50 transition-colors duration-300">
-              <div className="text-4xl font-bold text-purple-600 mb-2">📱</div>
-              <div className="mt-2 text-sm text-purple-700 font-medium">Mobile Friendly</div>
+            <div>
+              <div className="text-3xl font-bold text-blue-600">📱</div>
+              <div className="mt-2 text-sm text-gray-600">Mobile Friendly</div>
             </div>
-            <div className="p-4 rounded-lg hover:bg-purple-50 transition-colors duration-300">
-              <div className="text-4xl font-bold text-purple-600 mb-2">🔒</div>
-              <div className="mt-2 text-sm text-purple-700 font-medium">Secure</div>
+            <div>
+              <div className="text-3xl font-bold text-blue-600">🔒</div>
+              <div className="mt-2 text-sm text-gray-600">Secure</div>
             </div>
-            <div className="p-4 rounded-lg hover:bg-purple-50 transition-colors duration-300">
-              <div className="text-4xl font-bold text-purple-600 mb-2">⚡</div>
-              <div className="mt-2 text-sm text-purple-700 font-medium">Real-time</div>
+            <div>
+              <div className="text-3xl font-bold text-blue-600">⚡</div>
+              <div className="mt-2 text-sm text-gray-600">Real-time</div>
             </div>
           </div>
         </div>

@@ -50,18 +50,18 @@ export default function Navigation() {
             <div className="flex items-center space-x-2 ml-4 pl-4 border-l border-purple-200">
               <Link
                 href="/profile"
-                className="text-sm text-purple-700 hover:text-purple-800 px-3 py-2 rounded-lg hover:bg-purple-100 transition-all duration-300"
+                className="text-sm text-gray-600 hover:text-blue-600 px-3 py-1 rounded"
               >
                 👋 {userProfile?.name || user?.email}
                 {userProfile?.role && (
-                  <span className="ml-2 px-2 py-1 bg-gradient-to-r from-purple-100 to-purple-200 text-purple-800 rounded-full text-xs font-medium">
+                  <span className="ml-2 px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
                     {userProfile.role}
                   </span>
                 )}
               </Link>
               <button
                 onClick={signOut}
-                className="px-3 py-2 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-all duration-300"
+                className="px-3 py-1 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded"
               >
                 Sign Out
               </button>
@@ -75,7 +75,7 @@ export default function Navigation() {
                 const menu = document.getElementById('mobile-menu');
                 menu.classList.toggle('hidden');
               }}
-              className="p-2 rounded-lg text-purple-700 hover:text-purple-800 hover:bg-purple-100 transition-all duration-300"
+              className="p-2 rounded-lg text-gray-600 hover:text-blue-600 hover:bg-blue-50"
             >
               <span className="text-xl">☰</span>
             </button>
@@ -89,10 +89,10 @@ export default function Navigation() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 flex items-center space-x-2 ${
+                className={`px-4 py-2 rounded-lg font-medium transition-colors flex items-center space-x-2 ${
                   pathname === item.href
-                    ? 'bg-gradient-to-r from-purple-600 to-purple-700 text-white shadow-md'
-                    : 'text-purple-700 hover:text-purple-800 hover:bg-purple-100'
+                    ? 'bg-blue-600 text-white'
+                    : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
                 }`}
                 onClick={() => {
                   document.getElementById('mobile-menu').classList.add('hidden');
@@ -104,17 +104,17 @@ export default function Navigation() {
             ))}
             
             {/* Mobile Authentication Section */}
-            <div className="pt-2 border-t border-purple-200">
+            <div className="pt-2 border-t border-gray-200">
               <Link
                 href="/profile"
-                className="block px-4 py-2 text-sm text-purple-700 hover:text-purple-800 hover:bg-purple-100 rounded-lg transition-all duration-300"
+                className="block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded"
                 onClick={() => {
                   document.getElementById('mobile-menu').classList.add('hidden');
                 }}
               >
                 👋 {userProfile?.name || user?.email}
                 {userProfile?.role && (
-                  <span className="ml-2 px-2 py-1 bg-gradient-to-r from-purple-100 to-purple-200 text-purple-800 rounded-full text-xs font-medium">
+                  <span className="ml-2 px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
                     {userProfile.role}
                   </span>
                 )}
@@ -124,7 +124,7 @@ export default function Navigation() {
                   signOut();
                   document.getElementById('mobile-menu').classList.add('hidden');
                 }}
-                className="w-full text-left px-4 py-2 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-all duration-300"
+                className="w-full text-left px-4 py-2 text-red-600 hover:text-red-700 hover:bg-red-50 rounded"
               >
                 Sign Out
               </button>

@@ -256,7 +256,7 @@ export default function ProfilePage() {
                   <>
                     <a
                       href="/events"
-                      className="block w-full text-center bg-gradient-to-r from-purple-600 to-purple-700 text-white py-2 px-4 rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all duration-300 shadow-md hover:shadow-lg"
+                      className="block w-full text-center bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
                     >
                       Browse Events
                     </a>
