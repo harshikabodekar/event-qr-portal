@@ -104,78 +104,58 @@ export default function AuthPage() {
         });
 
         if (authError) {
-          if (authError.message.includes('Email not confirmed')) {
-            toast.error('Please check your email and click the confirmation link before signing in.');
-          } else {
-            toast.error('Sign up failed: ' + authError.message);
-          }
+          toast.error('Sign up failed: ' + authError.message);
         } else {
-          // Check if email confirmation is required
-          if (authData.user && !authData.user.email_confirmed_at) {
-            toast.success('Account created! Please check your email and click the confirmation link to complete registration.');
-            
-            // Reset form
-            setForm({
-              email: '',
-              password: '',
-              confirmPassword: '',
-              name: '',
-              role: 'student'
-            });
-          } else {
-            // Create user profile based on role
-            try {
-              if (form.role === 'student') {
-                // Create student profile
-                const { error: studentError } = await supabase
-                  .from('students')
-                  .insert([{
-                    id: authData.user.id,
-                    email: form.email.trim().toLowerCase(),
-                    name: form.name,
-                    phone: '',
-                    college: '',
-                    department: ''
-                  }]);
+          // Create user profile based on role
+          try {
+            if (form.role === 'student') {
+              // Create student profile
+              const { error: studentError } = await supabase
+                .from('students')
+                .insert([{
+                  id: authData.user.id,
+                  email: form.email.trim().toLowerCase(),
+                  name: form.name,
+                  phone: '',
+                  college: '',
+                  department: ''
+                }]);
 
-                if (studentError) {
-                  console.error('Error creating student profile:', studentError);
-                }
-              } else {
-                // Create organizer/admin profile
-                const { error: userError } = await supabase
-                  .from('users')
-                  .insert([{
-                    id: authData.user.id,
-                    email: form.email.trim().toLowerCase(),
-                    name: form.name,
-                    role: form.role
-                  }]);
-
-                if (userError) {
-                  console.error('Error creating user profile:', userError);
-                }
+              if (studentError) {
+                console.error('Error creating student profile:', studentError);
               }
-            } catch (profileError) {
-              console.error('Profile creation error:', profileError);
-            }
-            
-            toast.success('Account created successfully! Welcome to Event QR Portal!');
-            
-            // Reset form
-            setForm({
-              email: '',
-              password: '',
-              confirmPassword: '',
-              name: '',
-              role: 'student'
-            });
+            } else {
+              // Create organizer/admin profile
+              const { error: userError } = await supabase
+                .from('users')
+                .insert([{
+                  id: authData.user.id,
+                  email: form.email.trim().toLowerCase(),
+                  name: form.name,
+                  role: form.role
+                }]);
 
-            // Small delay to ensure auth state updates
-            setTimeout(() => {
-              console.log('Sign up successful, AuthGuard should handle redirect');
-            }, 100);
+              if (userError) {
+                console.error('Error creating user profile:', userError);
+              }
+            }
+          } catch (profileError) {
+            console.error('Profile creation error:', profileError);
           }
+          
+          toast.success('Account created successfully! Welcome to Event QR Portal!');
+          
+          // Reset form
+          setForm({
+            email: '',
+            password: '',
+            confirmPassword: '',
+            name: '',
+            role: 'student'
+          });
+
+          // The AuthGuard will automatically redirect to the portal
+          console.log('Sign up successful, AuthGuard should handle redirect');
         }
       } else {
         // Sign In
@@ -185,20 +165,12 @@ export default function AuthPage() {
         });
 
         if (error) {
-          if (error.message.includes('Email not confirmed')) {
-            toast.error('Please check your email and click the confirmation link before signing in.');
-          } else if (error.message.includes('Invalid login credentials')) {
-            toast.error('Invalid email or password. Please check your credentials.');
-          } else {
-            toast.error('Sign in failed: ' + error.message);
-          }
+          toast.error('Sign in failed: ' + error.message);
         } else {
           toast.success('Sign in successful! Welcome back!');
           
-          // Small delay to ensure auth state updates
-          setTimeout(() => {
-            console.log('Sign in successful, AuthGuard should handle redirect');
-          }, 100);
+          // The AuthGuard will automatically redirect to the portal
+          console.log('Sign in successful, AuthGuard should handle redirect');
         }
       }
     } catch (err) {

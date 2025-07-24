@@ -185,13 +185,7 @@ export default function AuthPage() {
         });
 
         if (error) {
-          if (error.message.includes('Email not confirmed')) {
-            toast.error('Please check your email and click the confirmation link before signing in.');
-          } else if (error.message.includes('Invalid login credentials')) {
-            toast.error('Invalid email or password. Please check your credentials.');
-          } else {
-            toast.error('Sign in failed: ' + error.message);
-          }
+          toast.error('Sign in failed: ' + error.message);
         } else {
           toast.success('Sign in successful! Welcome back!');
           
