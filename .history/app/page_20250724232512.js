@@ -4,7 +4,21 @@ import Navigation from './components/Navigation';
 import { useAuth } from './contexts/AuthContext';
 
 export default function HomePage() {
-  const { userProfile } = useAuth();
+  const { isAuthenticated, userProfile, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navigation />
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <div className="text-gray-600">Loading...</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-gray-50">
       <Navigation />

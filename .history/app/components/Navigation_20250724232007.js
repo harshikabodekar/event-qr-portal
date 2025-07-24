@@ -3,11 +3,9 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useAuth } from '../contexts/AuthContext';
 
 export default function Navigation() {
   const pathname = usePathname();
-  const { user, userProfile, signOut, isAuthenticated } = useAuth();
   
   const navItems = [
     { href: '/', label: 'Home', icon: '🏠' },
@@ -17,6 +15,7 @@ export default function Navigation() {
     { href: '/registrations', label: 'Event Registrations', icon: '📋' },
     { href: '/organizer', label: 'Organizer', icon: '⚙️' },
     { href: '/checkin', label: 'Check-in', icon: '✅' },
+    { href: '/auth', label: 'Sign In/Up', icon: '🔐' },
   ];
 
   return (
@@ -45,27 +44,6 @@ export default function Navigation() {
                 <span>{item.label}</span>
               </Link>
             ))}
-            
-            {/* Authentication Section */}
-            <div className="flex items-center space-x-2 ml-4 pl-4 border-l border-gray-200">
-              <Link
-                href="/profile"
-                className="text-sm text-gray-600 hover:text-blue-600 px-3 py-1 rounded"
-              >
-                👋 {userProfile?.name || user?.email}
-                {userProfile?.role && (
-                  <span className="ml-2 px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
-                    {userProfile.role}
-                  </span>
-                )}
-              </Link>
-              <button
-                onClick={signOut}
-                className="px-3 py-1 text-sm text-red-600 hover:text-red-700 hover:bg-red-50 rounded"
-              >
-                Sign Out
-              </button>
-            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -102,33 +80,6 @@ export default function Navigation() {
                 <span>{item.label}</span>
               </Link>
             ))}
-            
-            {/* Mobile Authentication Section */}
-            <div className="pt-2 border-t border-gray-200">
-              <Link
-                href="/profile"
-                className="block px-4 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded"
-                onClick={() => {
-                  document.getElementById('mobile-menu').classList.add('hidden');
-                }}
-              >
-                👋 {userProfile?.name || user?.email}
-                {userProfile?.role && (
-                  <span className="ml-2 px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs">
-                    {userProfile.role}
-                  </span>
-                )}
-              </Link>
-              <button
-                onClick={() => {
-                  signOut();
-                  document.getElementById('mobile-menu').classList.add('hidden');
-                }}
-                className="w-full text-left px-4 py-2 text-red-600 hover:text-red-700 hover:bg-red-50 rounded"
-              >
-                Sign Out
-              </button>
-            </div>
           </div>
         </div>
       </div>
