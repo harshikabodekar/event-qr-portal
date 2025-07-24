@@ -83,31 +83,6 @@ export default function AuthPage() {
         if (authError) {
           toast.error('Sign up failed: ' + authError.message);
         } else {
-          // Create user profile based on role
-          if (form.role === 'student') {
-            // Create student profile
-            await supabase
-              .from('students')
-              .insert([{
-                id: authData.user.id,
-                email: form.email.trim().toLowerCase(),
-                name: form.name,
-                phone: '',
-                college: '',
-                department: ''
-              }]);
-          } else {
-            // Create organizer/admin profile
-            await supabase
-              .from('users')
-              .insert([{
-                id: authData.user.id,
-                email: form.email.trim().toLowerCase(),
-                name: form.name,
-                role: form.role
-              }]);
-          }
-          
           toast.success('Account created successfully! Welcome to Event QR Portal!');
           
           // Reset form

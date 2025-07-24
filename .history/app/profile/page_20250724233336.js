@@ -125,10 +125,11 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Navigation />
-      <div className="max-w-4xl mx-auto p-8">
-        <Toaster />
+    <ProtectedRoute>
+      <div className="min-h-screen bg-gray-50">
+        <Navigation />
+        <div className="max-w-4xl mx-auto p-8">
+          <Toaster />
           
           {/* Profile Header */}
           <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
@@ -299,6 +300,6 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
-    </div>
+    </ProtectedRoute>
   );
 }
