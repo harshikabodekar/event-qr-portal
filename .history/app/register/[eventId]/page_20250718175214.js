@@ -50,7 +50,7 @@ export default function RegisterEventPage() {
         .eq('email', form.email.trim().toLowerCase())
         .single();
 
-        console.log("Checking existing student:", existingStudent);
+        console.lo
 
         console.error('Check Error:', checkError);
 
@@ -62,105 +62,68 @@ export default function RegisterEventPage() {
       }
 
       if (!existingStudent) {
-        // User doesn't exist, create new student record
-        const studentData = {
-          email: form.email.trim().toLowerCase(),
-          name: form.name,
-          phone: form.phone,
-          college: form.college,
-          department: form.department
-        };
+        // User doesn't exist, show detailed message and redirect
+        toast.error('Student profile not found! Please complete your student registration first.');
+        setTimeout(() => {
+          window.location.href = '/register?returnUrl=' + encodeURIComponent(window.location.pathname);
+        }, 2000);
+        setLoading(false);
+        return;
+      }
 
-        // Step 1: Insert student, get ID
-        const { data: insertedStudent, error: insertError } = await supabase
-          .from("students")
-          .insert([studentData])
-          .select('id')
-          .single();
+      // Check if student profile is complete
+      if (!existingStudent.name || !existingStudent.phone || !existingStudent.college || !existingStudent.department) {
+        toast.error('Your student profile is incomplete. Please update your profile first.');
+        setTimeout(() => {
+          window.location.href = '/register?returnUrl=' + encodeURIComponent(window.location.pathname);
+        }, 2000);
+        setLoading(false);
+        return;
+      }
 
-        if (insertError) {
-          toast.error('Error creating student profile: ' + insertError.message);
-          setLoading(false);
-          return;
-        }
+      // User exists and profile is complete
+      const studentId = existingStudent.id;
+      const qrCode = existingStudent.qr_code;
+      
+      // Check if already registered for this event
+      const { data: existingRegistration, error: regCheckError } = await supabase
+        .from('event_registrations')
+        .select('id')
+        .eq('student_id', studentId)
+        .eq('event_id', eventId)
+        .single();
 
-        console.log("Inserted new student:", insertedStudent);
+      if (existingRegistration) {
+        toast.error('You are already registered for this event!');
+        setLoading(false);
+        return;
+      }
 
-        // Step 2: Generate JSON QR code
-        const qrData = JSON.stringify({ studentId: insertedStudent.id });
-        const qrCode = await QRCode.toDataURL(qrData);
+      // Create event registration record
+      const { error: regError } = await supabase.from('event_registrations').insert([{
+        student_id: studentId,
+        event_id: eventId,
+        registered_at: new Date().toISOString()
+      }]);
 
-        // Step 3: Update with QR code
-        await supabase
-          .from("students")
-          .update({ qr_code: qrCode })
-          .eq('id', insertedStudent.id);
-
-        // Registration logic here...
-      } else {
-        // User exists, proceed with registration check
-        // Check if student profile is complete
-        if (!existingStudent.name || !existingStudent.phone || !existingStudent.college || !existingStudent.department) {
-          toast.error('Your student profile is incomplete. Please update your profile first.');
-          setTimeout(() => {
-            window.location.href = '/register?returnUrl=' + encodeURIComponent(window.location.pathname);
-          }, 2000);
-          setLoading(false);
-          return;
-        }
-
-        console.log("User exists and profile is complete:", existingStudent);
-        // Generate QR code data string
-
-        // User exists and profile is complete
-        const studentId = existingStudent.id;
-        const qrCode = existingStudent.qr_code;
-        
-        // Check if already registered for this event
-        const { data: existingRegistration, error: regCheckError } = await supabase
-          .from('event_registrations')
-          .select('id')
-          .eq('student_id', studentId.toString())
-          .eq('event_id', eventId.toString())
-          .single();
-
-        console.log("Checking existing registration:", existingRegistration);
-        console.log("Registration check error:", regCheckError);
-
-        if (existingRegistration) {
+      if (regError) {
+        if (regError.code === '23505') { // Unique constraint violation
           toast.error('You are already registered for this event!');
-          setLoading(false);
-          return;
-        }
-
-        // Create event registration record
-        const { error: regError } = await supabase.from('event_registrations').insert([{
-          student_id: studentId.toString(),
-          event_id: eventId.toString(),
-          registered_at: new Date().toISOString()
-        }]);
-
-        console.log("Registration insert error:", regError);
-
-        if (regError) {
-          if (regError.code === '23505') { // Unique constraint violation
-            toast.error('You are already registered for this event!');
-          } else {
-            toast.error('Registration failed: ' + regError.message);
-          }
         } else {
-          // Update form with existing student data for success display
-          setForm({
-            name: existingStudent.name,
-            email: existingStudent.email,
-            phone: existingStudent.phone,
-            college: existingStudent.college,
-            department: existingStudent.department
-          });
-          setQr(qrCode);
-          setSuccess(true);
-          toast.success('Successfully registered for ' + event?.name + '!');
+          toast.error('Registration failed: ' + regError.message);
         }
+      } else {
+        // Update form with existing student data for success display
+        setForm({
+          name: existingStudent.name,
+          email: existingStudent.email,
+          phone: existingStudent.phone,
+          college: existingStudent.college,
+          department: existingStudent.department
+        });
+        setQr(qrCode);
+        setSuccess(true);
+        toast.success('Successfully registered for ' + event?.name + '!');
       }
     } catch (err) {
       toast.error('Failed to process registration');

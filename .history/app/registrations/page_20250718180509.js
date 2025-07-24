@@ -70,6 +70,9 @@ export default function EventRegistrationsPage() {
         .select("*")
         .in('id', studentIds);
 
+      console.log("Students data:", studentsData);
+      console.log('Students error:', studentsError);
+
       if (studentsError) {
         toast.error("Failed to fetch student details");
         console.error(studentsError);

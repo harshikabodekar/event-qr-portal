@@ -16,55 +16,51 @@ export default function CheckinPage() {
     setResult(data);
     
     try {
-      let studentId;
+      let studentInfo;
       
-      // Try to parse as JSON first (new format with student ID)
+      // Try to parse as JSON first (new format)
       try {
         const parsed = JSON.parse(data);
-        if (parsed.studentId) {
-          studentId = parsed.studentId;
-        } else {
-          throw new Error('No studentId in JSON');
-        }
+        studentInfo = parsed;
       } catch (jsonError) {
         // If JSON parsing fails, try pipe-separated format (old format)
-        // For backward compatibility with existing QR codes
         const parts = data.split('|');
-        if (parts.length >= 2) {
-          // Use email from pipe-separated format to find student
-          const email = parts[1];
-          const { data: students, error: findError } = await supabase
-            .from('students')
-            .select('id')
-            .eq('email', email)
-            .single();
-          
-          if (findError || !students) {
-            throw new Error('Student not found with old QR format');
-          }
-          
-          studentId = students.id;
+        if (parts.length >= 5) {
+          studentInfo = {
+            name: parts[0],
+            email: parts[1],
+            phone: parts[2],
+            college: parts[3],
+            department: parts[4]
+          };
         } else {
           throw new Error('Invalid QR code format');
         }
       }
 
-      // Find student by ID
-      const { data: student, error: studentError } = await supabase
+      // Find student by email (since email is unique)
+      const { data: students, error: studentError } = await supabase
         .from('students')
         .select('*')
-        .eq('id', studentId)
-        .single();
+        .eq('email', studentInfo.email);
 
-      if (studentError || !student) {
+      if (studentError) {
+        setStatus('Error finding student');
+        toast.error('Database error');
+        return;
+      }
+
+      if (!students || students.length === 0) {
         setStatus('Student not found.');
         toast.error('Student not found');
         return;
       }
 
-      // Check if already checked in
+      const student = students[0];
+      
+      // Check if already checked in using the correct column name
       if (student.checked_in_at) {
-        setStatus(`${student.name} already checked in!`);
+        setStatus('Already checked in!');
         toast('Already checked in!', { icon: '✅' });
         return;
       }

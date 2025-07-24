@@ -42,6 +42,10 @@ export default function EventRegistrationsPage() {
         .eq('event_id', eventId.toString())
         .order('registered_at', { ascending: false });
 
+      console.log("Fetching registrations for event:", eventId);
+      console.log("Registration data:", registrationData);
+      console.log('Registration error:', regError);
+
       if (regError) {
         toast.error("Failed to fetch registrations");
         console.error(regError);
@@ -69,6 +73,9 @@ export default function EventRegistrationsPage() {
         .from("students")
         .select("*")
         .in('id', studentIds);
+
+      console.log("Students data:", studentsData);
+      console.log('Students error:', studentsError);
 
       if (studentsError) {
         toast.error("Failed to fetch student details");

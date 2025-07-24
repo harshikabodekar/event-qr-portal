@@ -33,73 +33,36 @@ export default function EventRegistrationsPage() {
   // Fetch registrations for selected event
   async function fetchEventRegistrations(eventId) {
     setLoading(true);
+    const { data, error } = await supabase
+      .from("event_registrations")
+      .select(`
+        *,
+        students (
+          id,
+          name,
+          email,
+          phone,
+          college,
+          department,
+          checked_in_at
+        ),
+        events (
+          name,
+          date
+        )
+      `)
+      .eq('event_id', eventId)
+      .order('registered_at', { ascending: false });
+
+      console.log("Fetching registrations for event:", eventId);
+      console.log("data:", data);
     
-    try {
-      // First, get all registrations for the event
-      const { data: registrationData, error: regError } = await supabase
-        .from("event_registrations")
-        .select("*")
-        .eq('event_id', eventId.toString())
-        .order('registered_at', { ascending: false });
-
-      if (regError) {
-        toast.error("Failed to fetch registrations");
-        console.error(regError);
-        setLoading(false);
-        return;
-      }
-
-      if (!registrationData || registrationData.length === 0) {
-        setRegistrations([]);
-        setLoading(false);
-        return;
-      }
-
-      // Get all student IDs from registrations
-      const studentIds = registrationData.map(reg => reg.student_id).filter(Boolean);
-
-      if (studentIds.length === 0) {
-        setRegistrations([]);
-        setLoading(false);
-        return;
-      }
-
-      // Fetch student details separately
-      const { data: studentsData, error: studentsError } = await supabase
-        .from("students")
-        .select("*")
-        .in('id', studentIds);
-
-      if (studentsError) {
-        toast.error("Failed to fetch student details");
-        console.error(studentsError);
-        setLoading(false);
-        return;
-      }
-
-      // Fetch event details
-      const { data: eventData, error: eventError } = await supabase
-        .from("events")
-        .select("*")
-        .eq('id', eventId)
-        .single();
-
-      // Combine the data manually
-      const combinedData = registrationData.map(registration => {
-        const student = studentsData?.find(s => s.id === registration.student_id);
-        return {
-          ...registration,
-          students: student || null,
-          events: eventData || null
-        };
-      });
-
-      setRegistrations(combinedData);
-    } catch (error) {
+    if (error) {
       toast.error("Failed to fetch registrations");
-      console.error("Fetch error:", error);
+      console.error(error);
+    } else {
+      setRegistrations(data);
     }
-    
     setLoading(false);
   }
 

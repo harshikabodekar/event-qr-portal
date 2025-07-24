@@ -93,16 +93,18 @@ export default function RegisterPage() {
         setLoading(false);
         return;
       }
-
-      toast.success("Student registered successfully!");
-      setForm({ name: "", email: "", phone: "", college: "", department: "" });
-      
-      // If there's a return URL, redirect after a short delay
-      if (returnUrl) {
-        toast.success("Redirecting to event registration...");
-        setTimeout(() => {
-          window.location.href = returnUrl;
-        }, 2000);
+        toast.error("Registration failed: " + error.message);
+      } else {
+        toast.success("Student registered successfully!");
+        setForm({ name: "", email: "", phone: "", college: "", department: "" });
+        
+        // If there's a return URL, redirect after a short delay
+        if (returnUrl) {
+          toast.success("Redirecting to event registration...");
+          setTimeout(() => {
+            window.location.href = returnUrl;
+          }, 2000);
+        }
       }
     } catch (err) {
       toast.error("Failed to process registration: " + err.message);

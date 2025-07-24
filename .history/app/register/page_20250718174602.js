@@ -61,48 +61,35 @@ export default function RegisterPage() {
         return;
       }
 
-      // Insert student into Supabase first to get the ID
-      const { data: insertedStudent, error } = await supabase.from("students").insert([
+      // Generate QR code data string
+      const qrData = `${form.name}|${form.email}|${form.phone}|${form.college}|${form.department}`;
+      const qrCodeBase64 = await QRCode.toDataURL(qrData);
+      
+      // Insert student into Supabase with QR code (general registration)
+      const { error } = await supabase.from("students").insert([
         { 
           name: form.name.trim(),
           email: form.email.trim().toLowerCase(),
           phone: form.phone.trim(),
           college: form.college.trim(),
-          department: form.department.trim()
+          department: form.department.trim(),
+          qr_code: qrCodeBase64
         },
-      ]).select('id').single();
+      ]);
 
       if (error) {
         toast.error("Registration failed: " + error.message);
-        setLoading(false);
-        return;
-      }
-
-      // Generate QR code with JSON format containing only the student ID
-      const qrData = JSON.stringify({ studentId: insertedStudent.id });
-      const qrCodeBase64 = await QRCode.toDataURL(qrData);
-      
-      // Update the student record with the QR code
-      const { error: updateError } = await supabase
-        .from("students")
-        .update({ qr_code: qrCodeBase64 })
-        .eq('id', insertedStudent.id);
-
-      if (updateError) {
-        toast.error("Failed to generate QR code: " + updateError.message);
-        setLoading(false);
-        return;
-      }
-
-      toast.success("Student registered successfully!");
-      setForm({ name: "", email: "", phone: "", college: "", department: "" });
-      
-      // If there's a return URL, redirect after a short delay
-      if (returnUrl) {
-        toast.success("Redirecting to event registration...");
-        setTimeout(() => {
-          window.location.href = returnUrl;
-        }, 2000);
+      } else {
+        toast.success("Student registered successfully!");
+        setForm({ name: "", email: "", phone: "", college: "", department: "" });
+        
+        // If there's a return URL, redirect after a short delay
+        if (returnUrl) {
+          toast.success("Redirecting to event registration...");
+          setTimeout(() => {
+            window.location.href = returnUrl;
+          }, 2000);
+        }
       }
     } catch (err) {
       toast.error("Failed to process registration: " + err.message);
