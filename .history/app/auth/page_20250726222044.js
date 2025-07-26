@@ -377,54 +377,6 @@ export default function AuthPage() {
                 🔒 Secure authentication powered by Supabase
               </p>
             </div>
-            
-            {/* Debug section - Test User Creation */}
-            <div className="mt-4 pt-4 border-t border-purple-200">
-              <p className="text-xs text-purple-600 mb-2">Quick Test:</p>
-              <button
-                onClick={async () => {
-                  try {
-                    setLoading(true);
-                    const testEmail = 'test@example.com';
-                    const testPassword = 'test123';
-                    
-                    // Try to create test user
-                    const { data: authData, error: authError } = await supabase.auth.signUp({
-                      email: testEmail,
-                      password: testPassword,
-                      options: {
-                        data: {
-                          name: 'Test User',
-                          role: 'student'
-                        }
-                      }
-                    });
-                    
-                    if (authError) {
-                      toast.error('Test user creation failed: ' + authError.message);
-                    } else {
-                      toast.success('Test user created! Email: test@example.com, Password: test123');
-                      
-                      // Auto-fill the form
-                      setForm({
-                        ...form,
-                        email: testEmail,
-                        password: testPassword
-                      });
-                      setIsSignUp(false);
-                    }
-                  } catch (error) {
-                    toast.error('Error: ' + error.message);
-                  } finally {
-                    setLoading(false);
-                  }
-                }}
-                disabled={loading}
-                className="text-xs bg-purple-100 text-purple-700 px-3 py-1 rounded-full hover:bg-purple-200 transition-colors disabled:opacity-50"
-              >
-                Create Test User
-              </button>
-            </div>
           </div>
         </div>
 
