@@ -80,53 +80,16 @@ export default function EventsPage() {
       </div>
       <Modal open={modalOpen} onClose={() => { setModalOpen(false); setAuthed(false); }}>
         {!authed ? (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-purple-900 mb-4">🔐 Organizer Authentication</h3>
-            <form onSubmit={handleCreate} className="space-y-4">
-              <input 
-                type="password" 
-                placeholder="Enter organizer password" 
-                value={password} 
-                onChange={e => setPassword(e.target.value)} 
-                className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-black bg-purple-50/30" 
-                required 
-              />
-              <button 
-                type="submit" 
-                className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white py-2 px-4 rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all duration-300"
-              >
-                🔓 Authenticate
-              </button>
-            </form>
-          </div>
+          <form onSubmit={handleCreate} className="flex flex-col gap-2">
+            <input type="password" placeholder="Organizer password" value={password} onChange={e => setPassword(e.target.value)} className="rounded px-2 py-1 border" required />
+            <button type="submit" className="bg-blue-600 text-white rounded px-4 py-2">Authenticate</button>
+          </form>
         ) : (
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-purple-900 mb-4">✨ Create New Event</h3>
-            <form onSubmit={handleCreate} className="space-y-4">
-              <input 
-                name="name" 
-                placeholder="Event Name" 
-                value={eventForm.name} 
-                onChange={handleChange} 
-                className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-black bg-purple-50/30" 
-                required 
-              />
-              <input 
-                name="date" 
-                type="date" 
-                value={eventForm.date} 
-                onChange={handleChange} 
-                className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-black bg-purple-50/30" 
-                required 
-              />
-              <button 
-                type="submit" 
-                className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-2 px-4 rounded-lg hover:from-green-700 hover:to-green-800 transition-all duration-300"
-              >
-                🎉 Create Event
-              </button>
-            </form>
-          </div>
+          <form onSubmit={handleCreate} className="flex flex-col gap-2">
+            <input name="name" placeholder="Event Name" value={eventForm.name} onChange={handleChange} className="rounded px-2 py-1 border" required />
+            <input name="date" type="date" value={eventForm.date} onChange={handleChange} className="rounded px-2 py-1 border" required />
+            <button type="submit" className="bg-green-600 text-white rounded px-4 py-2">Create Event</button>
+          </form>
         )}
       </Modal>
     </div>

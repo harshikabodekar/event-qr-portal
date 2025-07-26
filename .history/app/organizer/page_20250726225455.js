@@ -140,10 +140,10 @@ export default function OrganizerPage() {
               <img src={qrStudent.qr_code} alt="QR Code" className="w-48 h-48" />
             </div>
             <div className="text-center">
-              <div className="font-bold text-purple-900 text-lg">{qrStudent.name}</div>
-              <div className="text-sm text-purple-600">{qrStudent.email}</div>
+              <div className="font-bold">{qrStudent.name}</div>
+              <div className="text-xs text-gray-500">{qrStudent.email}</div>
             </div>
-            <button onClick={handleDownloadQR} className="bg-gradient-to-r from-purple-600 to-purple-700 text-white rounded-lg px-6 py-2 hover:from-purple-700 hover:to-purple-800 transition-all duration-300 shadow-md hover:shadow-lg">📥 Download QR Code</button>
+            <button onClick={handleDownloadQR} className="bg-blue-600 text-white rounded px-4 py-2 hover:bg-blue-700 transition">Download QR Code</button>
           </div>
         )}
       </Modal>

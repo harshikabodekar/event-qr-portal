@@ -106,66 +106,62 @@ export default function StudentsListPage() {
                 </div>
               )}
             </Modal>
-            <div className="max-w-6xl mx-auto bg-white/80 backdrop-blur-sm p-8 rounded-xl shadow-lg border border-purple-100">
+            <div className="max-w-6xl mx-auto bg-white dark:bg-gray-800 p-8 rounded-lg shadow">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent mb-4 sm:mb-0">👥 All Students Directory</h1>
+                <h1 className="text-2xl font-bold text-white mb-4 sm:mb-0">All Students Directory</h1>
                 <button 
                   onClick={fetchStudents}
-                  className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white px-6 py-2 rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg"
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition"
                 >
-                  🔄 Refresh Data
+                  Refresh Data
                 </button>
               </div>
-              <div className="bg-purple-50 border border-purple-200 p-4 rounded-lg mb-6">
-                <p className="text-purple-800 text-sm">
-                  <strong>📋 Note:</strong> This is a read-only view of all registered students. 
+              <div className="bg-blue-50 p-4 rounded-lg mb-6">
+                <p className="text-blue-800 text-sm">
+                  <strong>Note:</strong> This is a read-only view of all registered students. 
                   For event-specific registrations, visit the 
-                  <a href="/registrations" className="text-purple-600 hover:text-purple-700 font-semibold underline"> Event Registrations</a> page.
+                  <a href="/registrations" className="text-blue-600 hover:text-blue-700 font-semibold"> Event Registrations</a> page.
                 </p>
               </div>
               <div className="overflow-x-auto">
-                <table className="min-w-full border border-purple-200 rounded-lg overflow-hidden">
-                  <thead className="bg-gradient-to-r from-purple-600 to-purple-700">
+                <table className="min-w-full border rounded-lg">
+                  <thead className="bg-gray-100 dark:bg-gray-700 text-white">
                     <tr>
-                      <th className="px-4 py-3 text-white font-semibold">Name</th>
-                      <th className="px-4 py-3 text-white font-semibold">Email</th>
-                      <th className="px-4 py-3 text-white font-semibold">Phone</th>
-                      <th className="px-4 py-3 text-white font-semibold">College</th>
-                      <th className="px-4 py-3 text-white font-semibold">Department</th>
-                      <th className="px-4 py-3 text-white font-semibold">Check-in Status</th>
-                      <th className="px-4 py-3 text-white font-semibold">QR Code</th>
+                      <th className="px-4 py-2">Name</th>
+                      <th className="px-4 py-2">Email</th>
+                      <th className="px-4 py-2">Phone</th>
+                      <th className="px-4 py-2">College</th>
+                      <th className="px-4 py-2">Department</th>
+                      <th className="px-4 py-2">Check-in Status</th>
+                      <th className="px-4 py-2">QR Code</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white">
-                    {students.map((student, index) => (
-                      <tr key={student.id} className={`hover:bg-purple-50 transition-colors border-b border-purple-100 ${index % 2 === 0 ? 'bg-purple-25' : 'bg-white'}`}>
-                        <td className="px-4 py-3 text-purple-900 font-medium">{student.name}</td>
-                        <td className="px-4 py-3 text-purple-700">{student.email}</td>
-                        <td className="px-4 py-3 text-purple-700">{student.phone}</td>
-                        <td className="px-4 py-3 text-purple-700">{student.college}</td>
-                        <td className="px-4 py-3 text-purple-700">{student.department}</td>
-                        <td className="px-4 py-3 text-center">
+                  <tbody>
+                    {students.map((student) => (
+                      <tr key={student.id} className="hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
+                        <td className="px-4 py-2 text-white">{student.name}</td>
+                        <td className="px-4 py-2 text-white">{student.email}</td>
+                        <td className="px-4 py-2 text-white">{student.phone}</td>
+                        <td className="px-4 py-2 text-white">{student.college}</td>
+                        <td className="px-4 py-2 text-white">{student.department}</td>
+                        <td className="px-4 py-2 text-center">
                           <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
                             student.checked_in_at 
-                              ? 'bg-green-100 text-green-800 border border-green-200' 
-                              : 'bg-gray-100 text-gray-600 border border-gray-200'
+                              ? 'bg-green-600 text-white' 
+                              : 'bg-gray-300 text-gray-700'
                           }`}>
                             {student.checked_in_at ? '✅ Checked-in' : '⏳ Pending'}
                           </span>
                           {student.checked_in_at && (
-                            <div className="text-xs text-purple-500 mt-1">
+                            <div className="text-xs text-gray-400 mt-1">
                               {new Date(student.checked_in_at).toLocaleString()}
                             </div>
                           )}
                         </td>
-                        <td className="px-4 py-3 text-center">
+                        <td className="px-4 py-2 text-center">
                           {student.qr_code && (
-                            <button 
-                              onClick={() => handleShowQR(student)} 
-                              title="Show QR Code" 
-                              className="text-purple-600 hover:text-purple-800 p-2 rounded-lg hover:bg-purple-100 transition-all duration-300"
-                            >
-                              <QrCodeIcon className="w-6 h-6" />
+                            <button onClick={() => handleShowQR(student)} title="Show QR Code" className="hover:text-blue-600">
+                              <QrCodeIcon className="w-6 h-6 inline" />
                             </button>
                           )}
                         </td>
@@ -173,13 +169,7 @@ export default function StudentsListPage() {
                     ))}
                     {students.length === 0 && (
                       <tr>
-                        <td colSpan="7" className="text-center py-12 text-purple-600 bg-purple-50">
-                          <div className="flex flex-col items-center space-y-2">
-                            <span className="text-4xl">👥</span>
-                            <span className="font-medium">No students found.</span>
-                            <span className="text-sm text-purple-500">Students will appear here once they register.</span>
-                          </div>
-                        </td>
+                        <td colSpan="7" className="text-center py-4 text-gray-500">No students found.</td>
                       </tr>
                     )}
                   </tbody>

@@ -135,79 +135,59 @@ export default function RegisterPage() {
           </div>
         )}
         
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           {/* Name */}
-          <div>
-            <label className="block text-sm font-medium text-purple-700 mb-1">Full Name</label>
-            <input
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              required
-              placeholder="Enter your full name"
-              className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-black bg-purple-50/30"
-            />
-          </div>
-          
+          <input
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            required
+            placeholder="Name"
+            className="rounded px-4 py-2 border border-gray-600 text-white bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-300"
+          />
           {/* Email */}
-          <div>
-            <label className="block text-sm font-medium text-purple-700 mb-1">Email Address</label>
-            <input
-              name="email"
-              type="email"
-              value={form.email}
-              onChange={handleChange}
-              required
-              placeholder="Enter your email address"
-              className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-black bg-purple-50/30"
-            />
-          </div>
-          
+          <input
+            name="email"
+            type="email"
+            value={form.email}
+            onChange={handleChange}
+            required
+            placeholder="Email"
+            className="rounded px-4 py-2 border border-gray-600 text-white bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-300"
+          />
           {/* Phone */}
-          <div>
-            <label className="block text-sm font-medium text-purple-700 mb-1">Phone Number</label>
-            <input
-              name="phone"
-              value={form.phone}
-              onChange={handleChange}
-              required
-              placeholder="Enter your phone number"
-              className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-black bg-purple-50/30"
-            />
-          </div>
-          
+          <input
+            name="phone"
+            value={form.phone}
+            onChange={handleChange}
+            required
+            placeholder="Phone Number"
+            className="rounded px-4 py-2 border border-gray-600 text-white bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-300"
+          />
           {/* College */}
-          <div>
-            <label className="block text-sm font-medium text-purple-700 mb-1">College Name</label>
-            <input
-              name="college"
-              value={form.college}
-              onChange={handleChange}
-              required
-              placeholder="Enter your college name"
-              className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-black bg-purple-50/30"
-            />
-          </div>
-          
+          <input
+            name="college"
+            value={form.college}
+            onChange={handleChange}
+            required
+            placeholder="College Name"
+            className="rounded px-4 py-2 border border-gray-600 text-white bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-300"
+          />
           {/* Department */}
-          <div>
-            <label className="block text-sm font-medium text-purple-700 mb-1">Department</label>
-            <input
-              name="department"
-              value={form.department}
-              onChange={handleChange}
-              required
-              placeholder="Enter your department"
-              className="w-full px-4 py-2 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent text-black bg-purple-50/30"
-            />
-          </div>
-          
+          <input
+            name="department"
+            value={form.department}
+            onChange={handleChange}
+            required
+            placeholder="Department"
+            className="rounded px-4 py-2 border border-gray-600 text-white bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 placeholder-gray-300"
+          />
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white py-3 rounded-lg hover:from-purple-700 hover:to-purple-800 transition-all duration-300 font-semibold disabled:opacity-50 disabled:cursor-not-allowed shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+            className="bg-blue-600 text-white rounded py-2 mt-2 hover:bg-blue-700 transition-colors font-semibold disabled:opacity-60"
           >
-            {loading ? "⏳ Registering..." : "✨ Register Student Profile"}
+            {loading ? "Registering..." : "Register"}
           </button>
         </form>
       </div>

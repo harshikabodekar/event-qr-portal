@@ -149,25 +149,25 @@ export default function EventRegistrationsPage() {
           <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-purple-800 bg-clip-text text-transparent mb-8">📋 Event Registrations</h1>
           
           {/* Events List */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-purple-100 p-6 mb-8">
-            <h2 className="text-xl font-semibold text-purple-900 mb-4">📅 Select an Event</h2>
+          <div className="bg-white rounded-lg shadow p-6 mb-8">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">Select an Event</h2>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {events.map((event) => (
                 <div
                   key={event.id}
-                  className={`p-4 border rounded-lg cursor-pointer transition-all duration-300 ${
+                  className={`p-4 border rounded-lg cursor-pointer transition ${
                     selectedEvent?.id === event.id
-                      ? 'border-purple-500 bg-purple-50 shadow-md'
-                      : 'border-purple-200 hover:border-purple-400 hover:bg-purple-25'
+                      ? 'border-blue-500 bg-blue-50'
+                      : 'border-gray-300 hover:border-gray-400'
                   }`}
                   onClick={() => {
                     setSelectedEvent(event);
                     fetchEventRegistrations(event.id);
                   }}
                 >
-                  <h3 className="font-semibold text-purple-900 mb-1">{event.name}</h3>
-                  <p className="text-sm text-purple-600 mb-1">📅 {new Date(event.date).toLocaleDateString()}</p>
-                  <p className="text-sm text-purple-500">{event.description}</p>
+                  <h3 className="font-semibold text-gray-800">{event.name}</h3>
+                  <p className="text-sm text-gray-600">{new Date(event.date).toLocaleDateString()}</p>
+                  <p className="text-sm text-gray-500">{event.description}</p>
                 </div>
               ))}
             </div>
@@ -175,78 +175,75 @@ export default function EventRegistrationsPage() {
 
           {/* Registrations Table */}
           {selectedEvent && (
-            <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border border-purple-100 p-6">
+            <div className="bg-white rounded-lg shadow p-6">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-xl font-semibold text-purple-900">
-                  👥 Registrations for "{selectedEvent.name}"
+                <h2 className="text-xl font-semibold text-gray-800">
+                  Registrations for "{selectedEvent.name}"
                 </h2>
-                <div className="text-sm bg-purple-100 text-purple-700 px-3 py-1 rounded-full border border-purple-200">
+                <div className="text-sm text-gray-600">
                   Total: {registrations.length} registered
                 </div>
               </div>
 
               {loading ? (
-                <div className="text-center py-12">
-                  <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto mb-4"></div>
-                  <div className="text-purple-600">Loading registrations...</div>
+                <div className="text-center py-8">
+                  <div className="text-gray-600">Loading registrations...</div>
                 </div>
               ) : registrations.length === 0 ? (
-                <div className="text-center py-12 bg-purple-50 rounded-lg border border-purple-200">
-                  <div className="text-4xl mb-4">📝</div>
-                  <div className="text-purple-600 font-medium">No registrations found for this event.</div>
-                  <div className="text-sm text-purple-500 mt-2">Registrations will appear here once students sign up.</div>
+                <div className="text-center py-8">
+                  <div className="text-gray-500">No registrations found for this event.</div>
                 </div>
               ) : (
                 <div className="overflow-x-auto">
-                  <table className="min-w-full border border-purple-200 rounded-lg overflow-hidden">
-                    <thead className="bg-gradient-to-r from-purple-600 to-purple-700">
+                  <table className="min-w-full">
+                    <thead className="bg-gray-50">
                       <tr>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Name
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Email
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Phone
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           College
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Department
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Check-in Status
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Registered At
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-purple-200">
-                      {registrations.map((registration, index) => (
-                        <tr key={registration.id} className={`hover:bg-purple-50 transition-colors ${index % 2 === 0 ? 'bg-purple-25' : 'bg-white'}`}>
-                          <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-purple-900">
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {registrations.map((registration) => (
+                        <tr key={registration.id} className="hover:bg-gray-50">
+                          <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                             {registration.students?.name || 'N/A'}
                           </td>
-                          <td className="px-4 py-4 whitespace-nowrap text-sm text-purple-700">
+                          <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">
                             {registration.students?.email || 'N/A'}
                           </td>
-                          <td className="px-4 py-4 whitespace-nowrap text-sm text-purple-700">
+                          <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">
                             {registration.students?.phone || 'N/A'}
                           </td>
-                          <td className="px-4 py-4 whitespace-nowrap text-sm text-purple-700">
+                          <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">
                             {registration.students?.college || 'N/A'}
                           </td>
-                          <td className="px-4 py-4 whitespace-nowrap text-sm text-purple-700">
+                          <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">
                             {registration.students?.department || 'N/A'}
                           </td>
                           <td className="px-4 py-4 whitespace-nowrap">
-                            <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full border ${
+                            <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                               registration.students?.checked_in_at
-                                ? 'bg-green-100 text-green-800 border-green-200'
-                                : 'bg-gray-100 text-gray-800 border-gray-200'
+                                ? 'bg-green-100 text-green-800'
+                                : 'bg-gray-100 text-gray-800'
                             }`}>
                               {registration.students?.checked_in_at ? '✅ Checked In' : '⏳ Not Checked In'}
                             </span>

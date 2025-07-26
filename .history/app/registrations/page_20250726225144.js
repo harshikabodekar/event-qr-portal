@@ -201,52 +201,52 @@ export default function EventRegistrationsPage() {
                   <table className="min-w-full border border-purple-200 rounded-lg overflow-hidden">
                     <thead className="bg-gradient-to-r from-purple-600 to-purple-700">
                       <tr>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Name
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Email
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Phone
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           College
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Department
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Check-in Status
                         </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                           Registered At
                         </th>
                       </tr>
                     </thead>
-                    <tbody className="bg-white divide-y divide-purple-200">
-                      {registrations.map((registration, index) => (
-                        <tr key={registration.id} className={`hover:bg-purple-50 transition-colors ${index % 2 === 0 ? 'bg-purple-25' : 'bg-white'}`}>
-                          <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-purple-900">
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {registrations.map((registration) => (
+                        <tr key={registration.id} className="hover:bg-gray-50">
+                          <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                             {registration.students?.name || 'N/A'}
                           </td>
-                          <td className="px-4 py-4 whitespace-nowrap text-sm text-purple-700">
+                          <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">
                             {registration.students?.email || 'N/A'}
                           </td>
-                          <td className="px-4 py-4 whitespace-nowrap text-sm text-purple-700">
+                          <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">
                             {registration.students?.phone || 'N/A'}
                           </td>
-                          <td className="px-4 py-4 whitespace-nowrap text-sm text-purple-700">
+                          <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">
                             {registration.students?.college || 'N/A'}
                           </td>
-                          <td className="px-4 py-4 whitespace-nowrap text-sm text-purple-700">
+                          <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-700">
                             {registration.students?.department || 'N/A'}
                           </td>
                           <td className="px-4 py-4 whitespace-nowrap">
-                            <span className={`inline-flex px-3 py-1 text-xs font-semibold rounded-full border ${
+                            <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
                               registration.students?.checked_in_at
-                                ? 'bg-green-100 text-green-800 border-green-200'
-                                : 'bg-gray-100 text-gray-800 border-gray-200'
+                                ? 'bg-green-100 text-green-800'
+                                : 'bg-gray-100 text-gray-800'
                             }`}>
                               {registration.students?.checked_in_at ? '✅ Checked In' : '⏳ Not Checked In'}
                             </span>
