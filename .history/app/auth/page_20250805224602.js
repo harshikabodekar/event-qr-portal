@@ -380,9 +380,7 @@ export default function AuthPage() {
           </p>
         </div>
 
-        {/* Main Authentication Form Card */}
         <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-md border border-purple-100">
-          {/* Form Header - Changes based on mode */}
           <div className="text-center mb-6">
             <h2 className="text-3xl font-bold text-purple-900 mb-2">
               {isSignUp ? 'Create Account' : 'Welcome Back'}
@@ -395,12 +393,9 @@ export default function AuthPage() {
             </p>
           </div>
 
-          {/* Authentication Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Sign-Up Only Fields */}
             {isSignUp && (
               <>
-                {/* Full Name Input */}
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                     Full Name
@@ -417,7 +412,6 @@ export default function AuthPage() {
                   />
                 </div>
 
-                {/* Role Selection Dropdown */}
                 <div>
                   <label htmlFor="role" className="block text-sm font-medium text-purple-700 mb-1">
                     Role
@@ -437,7 +431,6 @@ export default function AuthPage() {
               </>
             )}
 
-            {/* Email Input - Required for both sign-in and sign-up */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-purple-700 mb-1">
                 Email Address
@@ -454,7 +447,6 @@ export default function AuthPage() {
               />
             </div>
 
-            {/* Password Input - Required for both sign-in and sign-up */}
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-purple-700 mb-1">
                 Password
@@ -471,7 +463,6 @@ export default function AuthPage() {
               />
             </div>
 
-            {/* Confirm Password - Only shown during sign-up */}
             {isSignUp && (
               <div>
                 <label htmlFor="confirmPassword" className="block text-sm font-medium text-purple-700 mb-1">
@@ -490,7 +481,6 @@ export default function AuthPage() {
               </div>
             )}
 
-            {/* Submit Button - Changes text and icons based on mode and loading state */}
             <button
               type="submit"
               disabled={loading}
@@ -503,7 +493,6 @@ export default function AuthPage() {
             </button>
           </form>
 
-          {/* Mode Toggle Section */}
           <div className="mt-6 text-center">
             <p className="text-purple-600">
               {isSignUp ? 'Already have an account?' : "Don't have an account?"}
@@ -516,36 +505,25 @@ export default function AuthPage() {
             </p>
           </div>
 
-          {/* Additional Features Section */}
+          {/* Additional options */}
           <div className="mt-4 pt-4 border-t border-purple-200">
-            {/* Security Badge */}
             <div className="text-center">
               <p className="text-xs text-purple-500">
                 🔒 Secure authentication powered by Supabase
               </p>
             </div>
             
-            {/* Development Helper - Test User Creation */}
+            {/* Debug section - Test User Creation */}
             <div className="mt-4 pt-4 border-t border-purple-200">
               <p className="text-xs text-purple-600 mb-2">Quick Test:</p>
               <button
                 onClick={async () => {
-                  /**
-                   * Development Helper - Create Test User
-                   * 
-                   * This function creates a test user account for development purposes.
-                   * It's useful for quickly testing the authentication flow without
-                   * needing to create real accounts or deal with email confirmation.
-                   * 
-                   * The test user credentials are automatically filled into the form
-                   * after creation for immediate testing.
-                   */
                   try {
                     setLoading(true);
                     const testEmail = 'test@example.com';
                     const testPassword = 'test123';
                     
-                    // Attempt to create test user account
+                    // Try to create test user
                     const { data: authData, error: authError } = await supabase.auth.signUp({
                       email: testEmail,
                       password: testPassword,
@@ -562,13 +540,13 @@ export default function AuthPage() {
                     } else {
                       toast.success('Test user created! Email: test@example.com, Password: test123');
                       
-                      // Auto-fill the form with test credentials for immediate use
+                      // Auto-fill the form
                       setForm({
                         ...form,
                         email: testEmail,
                         password: testPassword
                       });
-                      setIsSignUp(false); // Switch to sign-in mode
+                      setIsSignUp(false);
                     }
                   } catch (error) {
                     toast.error('Error: ' + error.message);
@@ -585,22 +563,19 @@ export default function AuthPage() {
           </div>
         </div>
 
-        {/* Account Types Information Panel */}
+        {/* Info Section */}
         <div className="mt-8 max-w-md text-center">
           <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm border border-purple-100">
             <h3 className="font-semibold text-purple-900 mb-3">Account Types</h3>
             <div className="text-sm text-purple-700 space-y-2">
-              {/* Student Account Description */}
               <div className="flex items-center space-x-2">
                 <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
                 <span><strong>Student:</strong> Register for events, get QR codes, check-in</span>
               </div>
-              {/* Organizer Account Description */}
               <div className="flex items-center space-x-2">
                 <span className="w-2 h-2 bg-purple-600 rounded-full"></span>
                 <span><strong>Organizer:</strong> Manage events, view registrations</span>
               </div>
-              {/* Admin Account Description */}
               <div className="flex items-center space-x-2">
                 <span className="w-2 h-2 bg-purple-800 rounded-full"></span>
                 <span><strong>Admin:</strong> Full system access and management</span>

@@ -121,78 +121,48 @@ export default function AuthPage() {
     });
   }
 
-  /**
-   * Handle Form Submission
-   * 
-   * This is the main function that handles both sign-in and sign-up operations.
-   * It performs comprehensive validation, communicates with Supabase Auth,
-   * and creates user profiles in the appropriate database tables based on role.
-   * 
-   * Flow:
-   * 1. Validate form inputs (email format, password strength, etc.)
-   * 2. Call Supabase Auth API (signIn or signUp)
-   * 3. Handle email confirmation if required
-   * 4. Create user profile in appropriate table (students/users)
-   * 5. Show success/error messages to the user
-   * 
-   * @param {Event} e - The form submission event
-   */
   async function handleSubmit(e) {
     e.preventDefault();
     
-    // ========== VALIDATION PHASE ==========
-    
-    // Check for required fields
+    // Basic validation
     if (!form.email || !form.password) {
       toast.error('Please fill in all required fields');
       return;
     }
 
-    // Validate email format using regex
+    // Email format validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(form.email)) {
       toast.error('Please enter a valid email address');
       return;
     }
 
-    // Ensure password meets minimum requirements
+    // Password validation
     if (form.password.length < 6) {
       toast.error('Password must be at least 6 characters long');
       return;
     }
 
-    // Additional validation for sign-up mode
     if (isSignUp) {
-      // Require name for new accounts
+      // Sign Up validation
       if (!form.name) {
         toast.error('Please enter your name');
         return;
       }
 
-      // Ensure passwords match
       if (form.password !== form.confirmPassword) {
         toast.error('Passwords do not match');
         return;
       }
     }
 
-    // ========== AUTHENTICATION PHASE ==========
-    
-    setLoading(true); // Show loading state to user
+    setLoading(true);
 
     try {
       if (isSignUp) {
-        // ========== SIGN UP FLOW ==========
-        
-        /**
-         * Create New User Account with Supabase Auth
-         * 
-         * This calls Supabase's signUp method with the user's credentials
-         * and additional metadata (name and role) that will be stored
-         * in the user's auth profile.
-         */
+        // Sign Up
         const { data: authData, error: authError } = await supabase.auth.signUp({
-          email: form.email.trim().toLowerCase(), // Normalize email
+          email: form.email.trim().toLowerCase(),
           password: form.password,
           options: {
             data: {
@@ -202,7 +172,6 @@ export default function AuthPage() {
           }
         });
 
-        // Handle authentication errors
         if (authError) {
           if (authError.message.includes('Email not confirmed')) {
             toast.error('Please check your email and click the confirmation link before signing in.');
@@ -210,17 +179,11 @@ export default function AuthPage() {
             toast.error('Sign up failed: ' + authError.message);
           }
         } else {
-          /**
-           * Handle Email Confirmation Flow
-           * 
-           * Supabase can be configured to require email confirmation.
-           * If confirmation is required, we show a message and reset the form.
-           * If not required, we proceed to create the user profile.
-           */
+          // Check if email confirmation is required
           if (authData.user && !authData.user.email_confirmed_at) {
             toast.success('Account created! Please check your email and click the confirmation link to complete registration.');
             
-            // Reset form after successful signup
+            // Reset form
             setForm({
               email: '',
               password: '',
@@ -229,51 +192,33 @@ export default function AuthPage() {
               role: 'student'
             });
           } else {
-            /**
-             * Create User Profile in Database
-             * 
-             * After successful authentication, we create a profile record
-             * in the appropriate table based on the user's role:
-             * - Students go in the 'students' table
-             * - Organizers and Admins go in the 'users' table
-             */
+            // Create user profile based on role
             try {
               if (form.role === 'student') {
-                /**
-                 * Create Student Profile
-                 * 
-                 * Students get a record in the 'students' table with additional
-                 * fields for their academic information (college, department, phone).
-                 * These fields start empty and can be filled later in the profile.
-                 */
+                // Create student profile
                 const { error: studentError } = await supabase
                   .from('students')
                   .insert([{
-                    id: authData.user.id, // Link to auth user
+                    id: authData.user.id,
                     email: form.email.trim().toLowerCase(),
                     name: form.name,
-                    phone: '', // To be filled later
-                    college: '', // To be filled later
-                    department: '' // To be filled later
+                    phone: '',
+                    college: '',
+                    department: ''
                   }]);
 
                 if (studentError) {
                   console.error('Error creating student profile:', studentError);
                 }
               } else {
-                /**
-                 * Create Organizer/Admin Profile
-                 * 
-                 * Organizers and admins get a record in the 'users' table
-                 * with their role information for access control.
-                 */
+                // Create organizer/admin profile
                 const { error: userError } = await supabase
                   .from('users')
                   .insert([{
-                    id: authData.user.id, // Link to auth user
+                    id: authData.user.id,
                     email: form.email.trim().toLowerCase(),
                     name: form.name,
-                    role: form.role // Store role for permissions
+                    role: form.role
                   }]);
 
                 if (userError) {
@@ -286,7 +231,7 @@ export default function AuthPage() {
             
             toast.success('Account created successfully! Welcome to Event QR Portal!');
             
-            // Reset form after successful account creation
+            // Reset form
             setForm({
               email: '',
               password: '',
@@ -302,25 +247,16 @@ export default function AuthPage() {
           }
         }
       } else {
-        // ========== SIGN IN FLOW ==========
-        
-        /**
-         * Authenticate Existing User
-         * 
-         * This attempts to sign in a user with their email and password.
-         * If successful, the AuthContext will be updated and the user
-         * will be redirected to the main application.
-         */
+        // Sign In
         console.log('Attempting sign in with:', { email: form.email.trim().toLowerCase() });
         
         const { data, error } = await supabase.auth.signInWithPassword({
-          email: form.email.trim().toLowerCase(), // Normalize email
+          email: form.email.trim().toLowerCase(),
           password: form.password
         });
 
         console.log('Sign in response:', { data, error });
 
-        // Handle sign-in errors with specific error messages
         if (error) {
           console.error('Sign in error details:', error);
           
@@ -334,38 +270,23 @@ export default function AuthPage() {
             toast.error('Sign in failed: ' + error.message);
           }
         } else {
-          // Successful sign-in
           console.log('Sign in successful:', data);
           toast.success('Sign in successful! Welcome back!');
           
-          // Small delay to ensure auth state updates properly
+          // Small delay to ensure auth state updates
           setTimeout(() => {
             console.log('Sign in successful, AuthGuard should handle redirect');
           }, 100);
         }
       }
     } catch (err) {
-      // Handle any unexpected errors during the authentication process
       toast.error('An unexpected error occurred');
       console.error('Auth error:', err);
     }
 
-    setLoading(false); // Reset loading state
+    setLoading(false);
   }
 
-  // ========== RENDER PHASE ==========
-  
-  /**
-   * Main Authentication Form UI
-   * 
-   * This renders the beautiful purple-themed authentication form with:
-   * - Toggle between sign-in and sign-up modes
-   * - Role selection for new users
-   * - Comprehensive form validation
-   * - Loading states and error handling
-   * - Test user creation for development
-   * - Account type information
-   */
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-purple-100">
       <div className="flex flex-col items-center justify-center min-h-screen p-8">
@@ -380,9 +301,7 @@ export default function AuthPage() {
           </p>
         </div>
 
-        {/* Main Authentication Form Card */}
         <div className="bg-white p-8 rounded-xl shadow-xl w-full max-w-md border border-purple-100">
-          {/* Form Header - Changes based on mode */}
           <div className="text-center mb-6">
             <h2 className="text-3xl font-bold text-purple-900 mb-2">
               {isSignUp ? 'Create Account' : 'Welcome Back'}
@@ -395,12 +314,9 @@ export default function AuthPage() {
             </p>
           </div>
 
-          {/* Authentication Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Sign-Up Only Fields */}
             {isSignUp && (
               <>
-                {/* Full Name Input */}
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                     Full Name
@@ -417,7 +333,6 @@ export default function AuthPage() {
                   />
                 </div>
 
-                {/* Role Selection Dropdown */}
                 <div>
                   <label htmlFor="role" className="block text-sm font-medium text-purple-700 mb-1">
                     Role
@@ -437,7 +352,6 @@ export default function AuthPage() {
               </>
             )}
 
-            {/* Email Input - Required for both sign-in and sign-up */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-purple-700 mb-1">
                 Email Address
@@ -454,7 +368,6 @@ export default function AuthPage() {
               />
             </div>
 
-            {/* Password Input - Required for both sign-in and sign-up */}
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-purple-700 mb-1">
                 Password
@@ -471,7 +384,6 @@ export default function AuthPage() {
               />
             </div>
 
-            {/* Confirm Password - Only shown during sign-up */}
             {isSignUp && (
               <div>
                 <label htmlFor="confirmPassword" className="block text-sm font-medium text-purple-700 mb-1">
@@ -490,7 +402,6 @@ export default function AuthPage() {
               </div>
             )}
 
-            {/* Submit Button - Changes text and icons based on mode and loading state */}
             <button
               type="submit"
               disabled={loading}
@@ -503,7 +414,6 @@ export default function AuthPage() {
             </button>
           </form>
 
-          {/* Mode Toggle Section */}
           <div className="mt-6 text-center">
             <p className="text-purple-600">
               {isSignUp ? 'Already have an account?' : "Don't have an account?"}
@@ -516,36 +426,25 @@ export default function AuthPage() {
             </p>
           </div>
 
-          {/* Additional Features Section */}
+          {/* Additional options */}
           <div className="mt-4 pt-4 border-t border-purple-200">
-            {/* Security Badge */}
             <div className="text-center">
               <p className="text-xs text-purple-500">
                 🔒 Secure authentication powered by Supabase
               </p>
             </div>
             
-            {/* Development Helper - Test User Creation */}
+            {/* Debug section - Test User Creation */}
             <div className="mt-4 pt-4 border-t border-purple-200">
               <p className="text-xs text-purple-600 mb-2">Quick Test:</p>
               <button
                 onClick={async () => {
-                  /**
-                   * Development Helper - Create Test User
-                   * 
-                   * This function creates a test user account for development purposes.
-                   * It's useful for quickly testing the authentication flow without
-                   * needing to create real accounts or deal with email confirmation.
-                   * 
-                   * The test user credentials are automatically filled into the form
-                   * after creation for immediate testing.
-                   */
                   try {
                     setLoading(true);
                     const testEmail = 'test@example.com';
                     const testPassword = 'test123';
                     
-                    // Attempt to create test user account
+                    // Try to create test user
                     const { data: authData, error: authError } = await supabase.auth.signUp({
                       email: testEmail,
                       password: testPassword,
@@ -562,13 +461,13 @@ export default function AuthPage() {
                     } else {
                       toast.success('Test user created! Email: test@example.com, Password: test123');
                       
-                      // Auto-fill the form with test credentials for immediate use
+                      // Auto-fill the form
                       setForm({
                         ...form,
                         email: testEmail,
                         password: testPassword
                       });
-                      setIsSignUp(false); // Switch to sign-in mode
+                      setIsSignUp(false);
                     }
                   } catch (error) {
                     toast.error('Error: ' + error.message);
@@ -585,22 +484,19 @@ export default function AuthPage() {
           </div>
         </div>
 
-        {/* Account Types Information Panel */}
+        {/* Info Section */}
         <div className="mt-8 max-w-md text-center">
           <div className="bg-white/80 backdrop-blur-sm p-6 rounded-xl shadow-sm border border-purple-100">
             <h3 className="font-semibold text-purple-900 mb-3">Account Types</h3>
             <div className="text-sm text-purple-700 space-y-2">
-              {/* Student Account Description */}
               <div className="flex items-center space-x-2">
                 <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
                 <span><strong>Student:</strong> Register for events, get QR codes, check-in</span>
               </div>
-              {/* Organizer Account Description */}
               <div className="flex items-center space-x-2">
                 <span className="w-2 h-2 bg-purple-600 rounded-full"></span>
                 <span><strong>Organizer:</strong> Manage events, view registrations</span>
               </div>
-              {/* Admin Account Description */}
               <div className="flex items-center space-x-2">
                 <span className="w-2 h-2 bg-purple-800 rounded-full"></span>
                 <span><strong>Admin:</strong> Full system access and management</span>
